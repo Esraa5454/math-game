@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>احمِ نفسك من المخاطر النفسية</title>
+<style>
+:root{--ink:#2b1d4a;--g:#1fa463;--r:#e63946}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Cairo","Tajawal","Segoe UI","Noto Naskh Arabic",Tahoma,sans-serif;background:linear-gradient(160deg,#d7f0ff,#fff0c2 55%,#ffd1e8);color:var(--ink);font-size:20px;line-height:1.7;min-height:100vh;padding:10px 10px 40px;overflow-x:hidden}
+#bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#bg span{position:absolute;bottom:-12vh;opacity:.65;animation:drift linear infinite}
+@keyframes drift{to{transform:translateY(-120vh) rotate(360deg)}}
+.app{position:relative;z-index:1;max-width:600px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 0 8px}
+h1{font-size:clamp(23px,6vw,34px);line-height:1.35;color:var(--r);text-shadow:2px 2px 0 #fff;text-align:center}
+.ali{width:86px;flex:none;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+#hud{display:flex;justify-content:space-between;gap:8px;margin:0 auto 10px;font-weight:800;font-size:18px;max-width:540px}
+#hud[hidden]{display:none}
+#hud span{background:#fff;border:3px solid var(--ink);border-radius:30px;padding:0 14px}
+#hud .bump{animation:pop .5s}
+@keyframes pop{40%{transform:scale(1.3)}}
+button{font:inherit;font-weight:800;color:var(--ink);cursor:pointer;border:3px solid var(--ink);border-radius:50px;padding:6px 22px;background:#ffd166;box-shadow:0 5px 0 var(--ink);min-height:52px;transition:transform .1s}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+button:disabled{opacity:.55;cursor:default}
+button:focus-visible,input:focus-visible{outline:4px solid #118ab2;outline-offset:3px}
+.go{background:var(--r);color:#fff}
+.box{background:#fffaf0;border:4px solid var(--ink);border-radius:28px;box-shadow:0 8px 0 var(--ink);padding:18px;width:min(94vw,540px);margin:0 auto}
+.box h2{color:#118ab2;font-size:26px}
+.start label{display:block;font-weight:800;margin-top:12px}
+input{font:inherit;width:100%;padding:8px 14px;border:3px solid var(--ink);border-radius:18px;margin:6px 0 14px;background:#fff;color:var(--ink)}
+.flip{perspective:1400px;width:min(94vw,540px);margin:0 auto;animation:deal .6s}
+@keyframes deal{from{transform:translateY(40px) rotate(-6deg) scale(.9);opacity:0}}
+.inner{display:grid;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.4,.2,.2,1.15)}
+.inner.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:4px solid var(--ink);border-radius:var(--rad);background:linear-gradient(150deg,var(--c1),var(--c2));box-shadow:0 8px 0 var(--ink);padding:14px 14px 18px;display:flex;flex-direction:column}
+.back{transform:rotateY(180deg)}
+.badge{position:relative;width:104px;height:104px;margin:0 auto -34px;z-index:2;animation:bob 2.6s ease-in-out infinite}
+.badge svg{width:100%;height:100%;fill:#fff;stroke:var(--ink);stroke-width:4;stroke-linejoin:round}
+.badge b{position:absolute;inset:0;display:grid;place-items:center;font-size:46px}
+.panel{background:#fffaf0;border:3px solid var(--ink);border-radius:22px;padding:44px 16px 16px;flex:1;text-align:center}
+.tag{display:inline-block;background:var(--ink);color:#fff;border-radius:20px;padding:0 14px;font-size:16px;margin-bottom:6px}
+.q{font-size:clamp(22px,5vw,27px);font-weight:800;line-height:1.6;margin-bottom:12px}
+.blank{display:inline-block;min-width:110px;border-bottom:4px dashed var(--r);color:var(--r);font-style:normal}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tf button{font-size:46px;padding:4px}
+.tf .y{background:#9be7b8}.tf .n{background:#ffadad}
+.opts{display:grid;gap:10px}
+.opts button{background:#fff;font-size:22px}
+.feel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.feel button{background:#fff;font-size:17px;padding:6px 2px;line-height:1.4}
+.feel span{display:block;font-size:44px}
+.shake{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
+.msg{min-height:46px;margin-top:10px;font-size:23px;font-weight:800}
+.msg.ok{color:var(--g)}.msg.no{color:var(--r)}
+.rd{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
+.rd i{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--ink)}
+.rd i.on{background:var(--r)}
+.fb{display:flex;flex-direction:column;align-items:center;gap:0;background:#fff;border-radius:22px;font-size:15px;line-height:1.35;padding:6px 4px}
+.fb span{font-size:42px}
+.faces{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bh{font-size:30px;font-weight:800;color:var(--r)}
+.bt{font-size:22px;margin:6px 0 10px}
+.earn{font-size:30px;min-height:44px}
+.rule{background:#fff;border:3px solid #ffd166;border-radius:16px;padding:6px 12px;margin:8px 0;font-weight:800;text-align:right}
+.morph{position:relative;height:92px;font-size:72px}
+.morph span{position:absolute;inset:0;line-height:92px}
+.m1{animation:ang 4.5s infinite}.m2{animation:calm 4.5s infinite}
+@keyframes ang{0%,30%{opacity:1;transform:rotate(-7deg)}35%{transform:rotate(7deg)}45%,90%{opacity:0}100%{opacity:1}}
+@keyframes calm{0%,40%{opacity:0}55%,88%{opacity:1}100%{opacity:0}}
+.mas{display:flex;justify-content:center;gap:14px;margin-top:22px;font-size:46px}
+.mas button{all:unset;cursor:pointer;animation:bob 2.2s ease-in-out infinite}
+.mas button:nth-child(2){animation-delay:.5s}.mas button:nth-child(3){animation-delay:1s}.mas button:nth-child(4){animation-delay:1.5s}
+.mas button:active{transform:scale(1.4) rotate(12deg)}
+.mas button:focus-visible{outline:4px solid #118ab2;border-radius:12px}
+.fs{position:fixed;font-size:34px;pointer-events:none;z-index:9;animation:fly 1.7s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),-70vh) rotate(360deg) scale(1.3);opacity:0}}
+.trophy{font-size:84px;animation:bob 2s infinite}
+.score{font-size:46px;font-weight:800;color:#e07a00}
+.srow{font-size:24px;word-break:break-all;margin:4px 0 8px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.inner{transition:none}}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<div class="app">
+  <header>
+    <svg class="ali" viewBox="0 0 100 100" role="img" aria-label="علي البطل">
+      <path d="M22 70 Q50 100 78 70 L84 98 Q50 92 16 98Z" fill="#e63946" stroke="#2b1d4a" stroke-width="3"/>
+      <circle cx="50" cy="52" r="32" fill="#ffcf9f" stroke="#2b1d4a" stroke-width="3"/>
+      <path d="M17 48 Q18 14 50 15 Q82 14 83 48 Q70 30 50 32 Q30 30 17 48Z" fill="#2b1d4a"/>
+      <circle cx="38" cy="52" r="4.5" fill="#2b1d4a"/><circle cx="62" cy="52" r="4.5" fill="#2b1d4a"/>
+      <circle cx="30" cy="62" r="5" fill="#ff9aa2" opacity=".7"/><circle cx="70" cy="62" r="5" fill="#ff9aa2" opacity=".7"/>
+      <path d="M38 66 Q50 80 62 66Z" fill="#fff" stroke="#2b1d4a" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M50 4l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z" fill="#ffd166" stroke="#2b1d4a" stroke-width="2"/>
+    </svg>
+    <h1>احمِ نفسك من المخاطر النفسية</h1>
+  </header>
+  <div id="hud" hidden><span id="hp"></span><span id="hs"></span></div>
+  <main id="stage"></main>
+  <div class="mas" aria-label="شخصيات مرحة">
+    <button aria-label="شخصية ضاحكة">😄</button><button aria-label="كتكوت ضاحك">🐥</button><button aria-label="روبوت ضاحك">🤖</button><button aria-label="ثعلب ضاحك">🦊</button>
+  </div>
+</div>
+
+<script>
+const P=(n,a,b,rot=-90)=>Array.from({length:n*2},(_,i)=>{const r=i%2?b:a,t=(rot+i*180/n)*Math.PI/180;return (50+r*Math.cos(t)).toFixed(1)+","+(50+r*Math.sin(t)).toFixed(1)}).join(" ");
+const SH={
+ heart:'<path d="M50 90C10 60 5 35 25 20 38 11 48 18 50 28 52 18 62 11 75 20 95 35 90 60 50 90Z"/>',
+ shield:'<path d="M50 5L88 18V50C88 72 70 88 50 96 30 88 12 72 12 50V18Z"/>',
+ circle:'<circle cx="50" cy="50" r="44"/>',
+ star:`<polygon points="${P(5,47,21)}"/>`,
+ cloud:'<rect x="8" y="14" width="84" height="72" rx="30"/>',
+ burst:`<polygon points="${P(10,47,36)}"/>`,
+ diamond:`<polygon points="${P(2,47,47)}"/>`,
+ hex:`<polygon points="${P(3,46,46,0)}"/>`
+};
+const ROUNDS=[
+ {s:"لو حد تنمر عليك في اللعبة… اضغط على الوجه اللي بيبلغ الأهل",o:[["😡","يرد ويشتم"],["😭","يعيط ويسكت"],["🧒","يبلغ الأهل",1],["🙈","يتجاهل ومايحكيش"]]},
+ {s:"لاعب كتب ألفاظ مش كويسة في الشات… اضغط على الوجه الصح",o:[["🤬","يشتمه بنفس الكلام"],["📣","يبلغ المسؤولين عن اللعبة",1],["😈","يتنمر عليه كمان"],["🤫","يخبي الموضوع"]]},
+ {s:"الوقت اتأخر واللعب لسه شغال… اضغط على الوجه الصح",o:[["😴","يقفل اللعبة وينام",1],["🎮","يكمل ساعة كمان"],["😤","يزعق لما ماما تناديه"],["🥱","يلعب ويسيب المذاكرة"]]}
+];
+const CARDS=[
+ {t:"tf",tag:"صح ولا غلط؟",e:"😴",sh:"heart",c1:"#ff8fab",c2:"#ffb86b",rad:"34px",q:"جعل اللعب أهم من كل شيء يؤثر سلباً على النوم والدراسة؟",ans:true,bh:"✔ صح",bt:"لأن اللعب الزيادة بيخلينا ننسى مذاكرتنا ونومنا."},
+ {t:"tf",tag:"صح ولا غلط؟",e:"🛡️",sh:"shield",c1:"#4cc9f0",c2:"#7b9cff",rad:"60px 18px 60px 18px",q:"عند التعرض للتنمر في الألعاب يجب الرد فوراً على المسيء؟",ans:false,bh:"✖ غلط",bt:"الصح إننا مانردش ونبلغ الأهل أو المسؤولين عن اللعبة."},
+ {t:"fill",tag:"أكمل",e:"😡",sh:"circle",c1:"#ffd166",c2:"#ff9f1c",rad:"26px 70px 26px 70px",q:'عندما يصبح اللعب أهم من كل شيء فإنه يولد مشاعر <i class="blank" id="blank">......</i>',o:["عدوانية","فرح","هدوء","غضب"],ok:["عدوانية","غضب"],bh:"عدوانية / غضب",bt:"اللعب الكتير بيخلينا نتعصب ونزعل، فلازم ننظم وقتنا ونهدى.",x:'<div class="morph" aria-label="وجه غاضب يتحول إلى هادئ"><span class="m1">😡</span><span class="m2">😌</span></div>'},
+ {t:"fill",tag:"أكمل",e:"📢",sh:"star",c1:"#b388ff",c2:"#7c4dff",rad:"40px",q:'عند التعرض للألفاظ الغير لائقة باللعبة يجب إبلاغ الأهل أو <i class="blank" id="blank">......</i>',o:["المسؤولين عن اللعبة","اللاعب المتنمر","الغرباء"],ok:["المسؤولين عن اللعبة"],bh:"المسؤولين عن اللعبة",bt:"بنبلغ الأهل أو المسؤولين عن اللعبة، وماننساش مانردش على الألفاظ الوحشة."},
+ {t:"mcq",tag:"موقف",e:"🗣️",sh:"cloud",c1:"#06d6a0",c2:"#118ab2",rad:"70px 24px 70px 24px",q:"صديقك في اللعبة شتمك، هتعمل إيه؟ اختار:",o:["أ) أرد عليه وأشتمه","ب) أسكت وأبلغ ماما وبابا","ج) أعيط وأقفل اللعبة"],ok:[1],bh:"برافو! انت بطل شجاع 🦸",bt:"إننا نسكت ونبلغ ماما وبابا بيحمينا وبيخلي المشكلة تتحل."},
+ {t:"feel",tag:"لعبة المشاعر",e:"📚",sh:"burst",c1:"#ef476f",c2:"#ff9770",rad:"34px 34px 80px 34px",q:"لو لعبت كتير ونسيت تذاكر، هتحس بإيه؟",o:[["😢","زعلان"],["😄","فرحان"],["🤩","متحمس"]],ok:[0],bh:"😢 زعلان",bt:"لأن المذاكرة هتتأخر، ونسهر ونتعب، وممكن ناخد درجات وحشة ونحس إننا قصّرنا."},
+ {t:"gold",tag:"القاعدة الذهبية",e:"👑",sh:"diamond",c1:"#ffd166",c2:"#f4a261",rad:"30px 30px 70px 70px",q:"عندك 3 قواعد ذهبية هتحميك! اقلب البطاقة واكتشفها 🌟",bh:"🏆 3 قواعد ذهبية",x:'<div class="rule">1- مانردش على المتنمر 🚫</div><div class="rule">2- نبلغ الأهل على طول 💬</div><div class="rule">3- اللعب ليه وقت، والمذاكرة والنوم أهم ⏰</div>'},
+ {t:"chal",tag:"بطاقة التحدي",e:"⚡",sh:"hex",c1:"#ff6b6b",c2:"#c44dff",rad:"60px",bh:"أحسنت يا بطل! 🎉",bt:"عرفت تختار التصرف الصح في كل المواقف. كده انت محمي!"}
+];
+const MAX=CARDS.length*3;
+const $=s=>document.querySelector(s),stage=$("#stage"),hud=$("#hud");
+let name="",stars=0,idx=0,wrong=0,AC=null;
+
+/* ===== الصوت ===== */
+function ctx(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume();return AC}catch(e){return null}}
+function clap(){const C=ctx();if(!C)return;
+ for(let i=0;i<14;i++){const t=C.currentTime+i*.11+Math.random()*.05,n=C.createBuffer(1,C.sampleRate*.08,C.sampleRate),d=n.getChannelData(0);
+  for(let j=0;j<d.length;j++)d[j]=(Math.random()*2-1)*Math.pow(1-j/d.length,3);
+  const s=C.createBufferSource(),g=C.createGain(),f=C.createBiquadFilter();
+  f.type="bandpass";f.frequency.value=1500+Math.random()*1500;g.gain.value=.6;
+  s.buffer=n;s.connect(f);f.connect(g);g.connect(C.destination);s.start(t)}}
+function boop(){const C=ctx();if(!C)return;const o=C.createOscillator(),g=C.createGain();
+ o.type="triangle";o.frequency.setValueAtTime(300,C.currentTime);o.frequency.exponentialRampToValueAtTime(170,C.currentTime+.18);
+ g.gain.setValueAtTime(.18,C.currentTime);g.gain.exponentialRampToValueAtTime(.001,C.currentTime+.22);
+ o.connect(g);g.connect(C.destination);o.start();o.stop(C.currentTime+.24)}
+
+/* ===== مؤثرات ===== */
+function fly(n=16){const E=["⭐","🌟","✨"];
+ for(let i=0;i<n;i++){const s=document.createElement("span");s.className="fs";s.textContent=E[i%3];
+  s.style.left=Math.random()*92+"vw";s.style.top=(60+Math.random()*30)+"vh";s.style.setProperty("--dx",(Math.random()*160-80)+"px");
+  s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2300)}}
+function hudUpdate(bump){$("#hp").textContent=`البطاقة ${Math.min(idx+1,CARDS.length)} من ${CARDS.length}`;
+ const h=$("#hs");h.textContent=`⭐ ${stars}`;if(bump){h.classList.remove("bump");void h.offsetWidth;h.classList.add("bump")}}
+(function(){const E=["⭐","💛","☁️","🎈","✨","🌈","💙"];
+ for(let i=0;i<14;i++){const s=document.createElement("span");s.textContent=E[i%E.length];
+  s.style.cssText=`left:${Math.random()*96}%;font-size:${22+Math.random()*26}px;animation-duration:${14+Math.random()*14}s;animation-delay:-${Math.random()*20}s`;$("#bg").appendChild(s)}})();
+document.querySelectorAll(".mas button").forEach(b=>b.onclick=()=>{ctx();fly(5)});
+
+/* ===== الشاشات ===== */
+function showStart(){hud.hidden=true;stars=0;idx=0;
+ stage.innerHTML=`<div class="box start">
+  <h2>📖 الدرس</h2>
+  <p>المخاطر النفسية: بعض اللاعبين يستخدمون ألفاظًا غير لائقة أو يتنمرون على الآخرين، ويجب عدم الرد عليهم وإبلاغ الأهل أو المسؤولين عن اللعبة.</p>
+  <p style="margin-top:8px">وعندما يصبح اللعب أهم من كل شيء آخر، قد يولّد مشاعر عدوانية ويؤثر على الدراسة والنوم والوقت مع العائلة والأصدقاء.</p>
+  <label for="nm">اكتب اسمك يا بطل:</label>
+  <input id="nm" maxlength="20" autocomplete="off" placeholder="اسمك هنا">
+  <button class="go" id="go" style="width:100%">يلا نبدأ 🚀</button></div>`;
+ $("#nm").value=name;
+ const start=()=>{name=$("#nm").value.trim();ctx();hud.hidden=false;idx=0;stars=0;showCard()};
+ $("#go").onclick=start;$("#nm").onkeydown=e=>{if(e.key==="Enter")start()}}
+
+function showCard(){
+ const c=CARDS[idx];wrong=0;hudUpdate();
+ const st=`--c1:${c.c1};--c2:${c.c2};--rad:${c.rad}`;
+ stage.innerHTML=`<div class="flip"><div class="inner" id="inner">
+  <section class="face front" id="front" style="${st}">
+   <div class="badge"><svg viewBox="0 0 100 100" aria-hidden="true">${SH[c.sh]}</svg><b aria-hidden="true">${c.e}</b></div>
+   <div class="panel"><span class="tag">${c.tag}</span>
+    ${c.q?`<div class="q">${c.q}</div>`:""}
+    <div id="area"></div>
+    <div class="msg" id="msg" aria-live="polite"></div>
+    <button id="reveal" hidden>🔄 اقلب وشوف الإجابة</button></div>
+  </section>
+  <section class="face back" id="back" style="${st}" inert>
+   <div class="badge"><svg viewBox="0 0 100 100" aria-hidden="true">${SH[c.sh]}</svg><b aria-hidden="true">${c.t==="gold"?"🏆":"✅"}</b></div>
+   <div class="panel"><div class="bh">${c.bh}</div>${c.x||""}${c.bt?`<div class="bt">${c.bt}</div>`:""}
+    <div class="earn" id="earn" aria-live="polite"></div>
+    <button class="go" id="next">${idx===CARDS.length-1?"شوف نتيجتك 🏆":"البطاقة اللي بعدها ◀"}</button></div>
+  </section></div></div>`;
+ $("#next").onclick=()=>{idx++;idx<CARDS.length?showCard():showResult()};
+ $("#reveal").onclick=()=>doFlip(0);
+ const area=$("#area");
+ if(c.t==="tf"){area.className="tf";area.innerHTML=`<button class="y" aria-label="صح">✔</button><button class="n" aria-label="غلط">✖</button>`;
+  area.children[0].onclick=e=>judge(c.ans===true,e.currentTarget);area.children[1].onclick=e=>judge(c.ans===false,e.currentTarget)}
+ else if(c.t==="fill"||c.t==="mcq"){area.className="opts";
+  c.o.forEach((o,k)=>{const b=document.createElement("button");b.textContent=o;
+   b.onclick=()=>{const ok=c.t==="fill"?c.ok.includes(o):c.ok.includes(k);
+    if(ok&&c.t==="fill")$("#blank").textContent=o;judge(ok,b)};area.appendChild(b)})}
+ else if(c.t==="feel"){area.className="feel";
+  c.o.forEach((o,k)=>{const b=document.createElement("button");b.innerHTML=`<span>${o[0]}</span>${o[1]}`;b.onclick=()=>judge(c.ok.includes(k),b);area.appendChild(b)})}
+ else if(c.t==="gold"){const b=document.createElement("button");b.className="go";b.textContent="اقلب البطاقة 🌟";
+  b.onclick=()=>{clap();fly();stars+=3;hudUpdate(true);doFlip(3)};area.appendChild(b)}
+ else if(c.t==="chal")challenge(area);
+}
+
+function judge(ok,btn){
+ const msg=$("#msg");
+ if(ok){const earned=Math.max(1,3-wrong);stars+=earned;clap();fly();hudUpdate(true);
+  msg.className="msg ok";msg.textContent="👏 أحسنت يا بطل!";
+  document.querySelectorAll("#area button").forEach(b=>b.disabled=true);
+  setTimeout(()=>doFlip(earned),900)}
+ else{wrong++;boop();btn.classList.remove("shake");void btn.offsetWidth;btn.classList.add("shake");
+  msg.className="msg no";msg.textContent="💪 حاول تاني، انت قدها!";
+  if(wrong>=3)$("#reveal").hidden=false}}
+
+function doFlip(earned){
+ $("#inner").classList.add("flipped");$("#front").inert=true;$("#back").inert=false;
+ $("#earn").textContent=earned?"⭐".repeat(earned):"المرة الجاية هتكسب نجوم 💪";
+ setTimeout(()=>$("#next").focus({preventScroll:true}),900)}
+
+function challenge(area){
+ let r=0,mist=0;
+ const msg=$("#msg");
+ (function round(){
+  const R=ROUNDS[r],o=R.o.slice().sort(()=>Math.random()-.5);
+  area.className="";
+  area.innerHTML=`<div class="rd">${ROUNDS.map((_,i)=>`<i class="${i<=r?"on":""}"></i>`).join("")}</div>
+   <p class="q" style="font-size:21px">${R.s}</p><div class="faces"></div>`;
+  const wrap=area.querySelector(".faces");
+  o.forEach(f=>{const b=document.createElement("button");b.className="fb";b.innerHTML=`<span>${f[0]}</span>${f[1]}`;
+   b.onclick=()=>{
+    if(f[2]){clap();fly(10);msg.className="msg ok";msg.textContent="👏 أحسنت يا بطل!";
+     wrap.querySelectorAll("button").forEach(x=>x.disabled=true);
+     setTimeout(()=>{r++;msg.textContent="";
+      if(r<ROUNDS.length)round();
+      else{const e=mist===0?3:mist<=2?2:1;stars+=e;hudUpdate(true);doFlip(e)}},1200)}
+    else{mist++;boop();b.classList.remove("shake");void b.offsetWidth;b.classList.add("shake");
+     msg.className="msg no";msg.textContent="💪 حاول تاني، انت قدها!"}};
+   wrap.appendChild(b)});
+ })()}
+
+function showResult(){
+ hud.hidden=true;ctx();clap();fly(30);
+ const p=stars/MAX,m=p>=.85?"أنت بطل حقيقي! عرفت تحمي نفسك من المخاطر النفسية 💪":p>=.5?"شاطر جدًا! كمّل وهتبقى بطل كبير 🌟":"محاولة حلوة! ارجع للبطاقات وجرّب تاني، انت قدها! 💛";
+ stage.innerHTML=`<div class="box" style="text-align:center">
+  <div class="trophy">🏆</div><h2 id="rn"></h2>
+  <div class="score">⭐ ${stars} / ${MAX}</div>
+  <div class="srow" aria-hidden="true">${"⭐".repeat(stars)||"—"}</div>
+  <p style="font-weight:800;color:var(--r)">${m}</p>
+  <div class="rule" style="margin-top:12px">1- مانردش على المتنمر 🚫</div><div class="rule">2- نبلغ الأهل على طول 💬</div><div class="rule">3- اللعب ليه وقت، والمذاكرة والنوم أهم ⏰</div>
+  <button class="go" id="again" style="margin-top:12px">🔁 العب تاني</button></div>`;
+ $("#rn").textContent=name?`برافو يا ${name}!`:"برافو يا بطل!";
+ $("#again").onclick=showStart}
+
+showStart();
+</script>
+</body>
+</html>
